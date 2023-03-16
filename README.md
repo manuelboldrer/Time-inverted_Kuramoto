@@ -16,7 +16,11 @@ part of the simulation results in the following paper:
  Multi-Robot Persistent Monitoring and Target Detection. 
  IEEE Robotics and Automation Letters, 8(1), 240-247.
 
+Youtube videos on this can be found here:
 
+https://www.youtube.com/watch?v=pMJR5q4jNSs&t=112s 
+
+https://www.youtube.com/watch?v=AQxW9aP8ugo
 
 
 ![tik1](https://user-images.githubusercontent.com/95948066/225571117-5f9e7476-c5e0-4bbe-b136-4804e1386739.gif)
