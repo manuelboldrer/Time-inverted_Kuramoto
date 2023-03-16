@@ -1,9 +1,33 @@
+%/*-----------------------------------------------------
+%|      Manuel Boldrer, PhD                            |
+%|      Department of Cognitive Robotics               |
+%|      Delft University of Technology                 |
+%|                                                     |
+%|      email: m.boldrer@tudelft.nl                    |
+%|      https://manuelboldrer.github.io/               |                                                   
+%-----------------------------------------------------*/
+%The algorithms implemented in this code were used to generate
+%part of the simulation results in the following papers:
+
+%[1] Boldrer, M., Riz, F., Pasqualetti, F., Palopoli, L., & Fontanelli, D. (2021, December).
+% Time-inverted Kuramoto dynamics for κ-clustered circle coverage.
+% In 2021 60th IEEE Conference on Decision and Control (CDC) (pp. 1205-1211). IEEE.
+
+%[2] Boldrer, M., Pasqualetti, F., Palopoli, L., & Fontanelli, D. (2022).
+% Multiagent persistent monitoring via time-inverted kuramoto dynamics.
+% IEEE Control Systems Letters, 6, 2798-2803.
+
+%[3] Boldrer, M., Lyons, L., Palopoli, L., Fontanelli, D., & Ferranti, L. (2022).
+% Time-Inverted Kuramoto Model Meets Lissajous Curves: 
+% Multi-Robot Persistent Monitoring and Target Detection. 
+% IEEE Robotics and Automation Letters, 8(1), 240-247.
+
 clc, clear, close all
 
 % Numerical simulation for the Kuramoto model
 % theta_i'=Omega_i + K/N sum_j=1^N sin(theta_j-theta_i)
 
-N=13;                         % Number of agents
+N=9;                         % Number of agents
 p=5;                          % p determines the initial topology i.e., Ad
 kk=1;                         % initialization
 theta(:,1) = linspace(0,1,N); % agents' state
@@ -87,14 +111,14 @@ L = full(laplacian(G));
 neigh = cell(N,1);
 iter = 2000;
 diff = zeros(iter,N);
-alpha = 3;
+alpha = 4;
 rs    = 0.45;
 hend  = 10;
 flag  = 1;
 plotflag = 1;
 figure
 
-K = 0.2*N.*ones(N,1);
+K = 0.1*N.*ones(N,1);
 dt =  0.1;
 for j=1:N
     theta(j,1) = (j-1)*2*pi*p/N+ 3*rand;
@@ -214,6 +238,8 @@ for kk = 1:iter
         end
         box on
         drawnow
+                F(kk) = getframe(gcf); %#ok<*SAGROW>
+
         delete(edges)
         if kk <iter
             delete(ag)
@@ -224,12 +250,14 @@ end
 
 %%
 % % %
-% video = VideoWriter('tracking1.mp4','MPEG-4');
-% video.Quality = 50;
-% video.FrameRate = 1/dt;
-% open(video)
-% writeVideo(video,F(1:399))
-% close(video)
+
+video = VideoWriter('TIK6.avi','Motion JPEG AVI');
+    video.Quality = 100;
+    video.FrameRate = 1/(dt/4);
+    open(video)
+    writeVideo(video,F(1:1525))
+    close(video)
+
 
 
 
