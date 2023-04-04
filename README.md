@@ -1,7 +1,7 @@
 # Time-inverted_Kuramoto 
 
 The algorithms implemented in this repository were used to generate
-part of the simulation results in the following paper:
+part of the simulation results in the following papers:
 
 [1] Boldrer, M., Riz, F., Pasqualetti, F., Palopoli, L., & Fontanelli, D. (2021, December).
  Time-inverted Kuramoto dynamics for κ-clustered circle coverage.
