@@ -53,8 +53,8 @@ z=0;
 % x = 12*cos
 x = 5*cos(X);
 y = 5*sin(X);
-x = 0.8*cos(7*X);
-y = 1.8*sin(6*X);
+x = 0.8*cos(5*X);
+y = 1.8*sin(4*X);
 % z = 0*sin(cc1*X);
 
 % x = 12.5*cos(X-)

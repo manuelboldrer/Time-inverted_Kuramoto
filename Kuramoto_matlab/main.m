@@ -96,8 +96,6 @@ for m = 1:N  %Compute the Adjacency matrix depending on N and p.
         Ad(k1,h1) = 1;
 
     end
-
-
 end
 %
 
