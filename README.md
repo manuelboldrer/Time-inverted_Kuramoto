@@ -1,4 +1,4 @@
-# Time-inverted_Kuramoto 
+# Time-inverted Kuramoto 
 
 The algorithms implemented in this repository were used to generate
 part of the simulation results in the following papers:
