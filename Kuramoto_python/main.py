@@ -25,29 +25,30 @@ def kuramoto(x, K, N, Omega, Ad):
     f = Omega + (K ) * np.sum(np.sin(x * Ad - Ad.T * x.T), axis=1)
     return f
 
+# lissajous
 def fun(X, alpha):
     X = alpha * X
     t = np.mod(X, 2 * np.pi)
-    x = 20 * np.cos(9*t)
-    y = 20 * np.sin(5*t)#*np.sin(5*t)
-    z = 7 + 2 * np.sin(1*t)
+    x = 1000 * np.cos(13*t)
+    y = 1000 * np.sin(12*t)#*np.sin(5*t)
+    z = 100 + 2 * np.sin(1*t)
     return x,y,z
 
 # Parameters
-N = 14
-p = 5
+N = 25
+p = 11
 Ad = circular_undirected_adjacency_matrix(N) 
-A = 20
-B = 20
+A = 1000
+B = 1000
 neigh = [np.where(Ad[i] == 1)[0] for i in range(N)]
 iter = 2000
-alpha = 1
+alpha = 7
 rs = np.sin(np.pi/N)*np.sqrt(A**2+B**2)
-
+print(rs)
 # Initializations
 theta = np.zeros((N, iter+1))
-K = 4* np.ones((1, N))
-Omega = (0.04/ alpha ) * np.ones((N,iter+1))+ np.random.normal(loc=0, scale=0.01, size=(N, iter+1))
+K = 1* np.ones((1, N))
+Omega = (0.01/ alpha ) * np.ones((N,iter+1))#+ np.random.normal(loc=0, scale=0.01, size=(N, iter+1))
 ff = np.zeros((N, iter+1))
 x, y, z = np.zeros((iter+1, N)), np.zeros((iter+1, N)), np.zeros((iter+1, N))
 xnext, ynext, znext = np.zeros((iter+1, N)), np.zeros((iter+1, N)), np.zeros((iter+1, N))
@@ -124,7 +125,7 @@ for kk in range(iter):
     TT = np.linspace(0, 2 * np.pi, 100)  # Angle parameter
     #ax.add_artist(circle)
     for j in range(N):
-        radius = math.sin(math.pi/N)*math.sqrt(800)
+        radius = rs
         #print("radius : ", radius)
     # Parametric equations for a circle in 3D space
         XX = x[kk, j] + radius * np.cos(TT)
@@ -139,18 +140,25 @@ for kk in range(iter):
     ax.plot(xb, yb, color='k')
     ax.plot(xX, yY, zZ, 'r', linewidth=1)
     for j in range(N):
-            ax.scatter(x[kk, j] , y[kk, j], z[kk,j], c='b', marker='o')
     
+        # if j== 0:
+        #     ax.scatter(x[kk, j] , y[kk, j], z[kk,j], c='k', marker='o')
+        # if j== 1:
+        #     ax.scatter(x[kk, j] , y[kk, j], z[kk,j], c='r', marker='o')
+        # if j== 2: 
+        ax.scatter(x[kk, j] , y[kk, j], z[kk,j], c='y', marker='o')
+        if j>12:    
+            ax.scatter(x[kk, j] , y[kk, j], z[kk,j], c='b', marker='o')
     min_distance = minimum_distance_among_robots(x[kk, :] , y[kk, :], z[kk,:])
     print("Minimum distance among all pairs of robots:", min_distance)
     print("time:", dt*kk)
 
-    #for i in range(len(Ad)):
-    #    for j in range(i + 1, len(Ad[i])):
-    #        if Ad[i, j] == 1:
-    #            plt.plot([x[kk,i], x[kk,j]], [y[kk,i], y[kk,j]], 'o-')
+    for i in range(len(Ad)):
+        for j in range(i + 1, len(Ad[i])):
+            if Ad[i, j] == 1:
+                plt.plot([x[kk,i], x[kk,j]], [y[kk,i], y[kk,j]], 'o-')
     #print(theta[:,kk])
     plt.axis('equal')
     plt.show()
-    plt.pause(0.01)
+    plt.pause(0.1)
     ax.clear()
