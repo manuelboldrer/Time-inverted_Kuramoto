@@ -31,7 +31,7 @@ def fun(X, alpha):
     t = np.mod(X, 2 * np.pi)
     x = 1000 * np.cos(13*t)
     y = 1000 * np.sin(12*t)#*np.sin(5*t)
-    z = 100 + 2 * np.sin(1*t)
+    z = 0 + 0 * np.sin(1*t)
     return x,y,z
 
 # Parameters
@@ -47,8 +47,9 @@ rs = np.sin(np.pi/N)*np.sqrt(A**2+B**2)
 print(rs)
 # Initializations
 theta = np.zeros((N, iter+1))
-K = 1* np.ones((1, N))
+K = 7* np.ones((1, N))
 Omega = (0.01/ alpha ) * np.ones((N,iter+1))#+ np.random.normal(loc=0, scale=0.01, size=(N, iter+1))
+Omega[0] = 0.005/alpha
 ff = np.zeros((N, iter+1))
 x, y, z = np.zeros((iter+1, N)), np.zeros((iter+1, N)), np.zeros((iter+1, N))
 xnext, ynext, znext = np.zeros((iter+1, N)), np.zeros((iter+1, N)), np.zeros((iter+1, N))
@@ -57,12 +58,12 @@ xnext, ynext, znext = np.zeros((iter+1, N)), np.zeros((iter+1, N)), np.zeros((it
 for j in range(N):
     theta[j, 0] = np.mod((j-1) * 2 * np.pi * p / N,2*np.pi) #+ np.random.rand
 
-#theta[1,0]= theta[1,0] - 0.05
+# theta[1,0]= theta[1,0] - 0.05
 #theta[9,0]= theta[9,0] + 0.05
 
 
 # Time integration
-dt = 0.1
+dt = 0.08
 
 plt.ion()
 fig, ax= plt.subplots()
@@ -139,24 +140,24 @@ for kk in range(iter):
     
     ax.plot(xb, yb, color='k')
     ax.plot(xX, yY, zZ, 'r', linewidth=1)
-    for j in range(N):
+    # for j in range(N):
     
         # if j== 0:
         #     ax.scatter(x[kk, j] , y[kk, j], z[kk,j], c='k', marker='o')
         # if j== 1:
         #     ax.scatter(x[kk, j] , y[kk, j], z[kk,j], c='r', marker='o')
         # if j== 2: 
-        ax.scatter(x[kk, j] , y[kk, j], z[kk,j], c='y', marker='o')
-        if j>12:    
-            ax.scatter(x[kk, j] , y[kk, j], z[kk,j], c='b', marker='o')
-    min_distance = minimum_distance_among_robots(x[kk, :] , y[kk, :], z[kk,:])
-    print("Minimum distance among all pairs of robots:", min_distance)
-    print("time:", dt*kk)
+        # ax.scatter(x[kk, j] , y[kk, j], z[kk,j], c='y', marker='o')
+        # if j>12:    
+            # ax.scatter(x[kk, j] , y[kk, j], z[kk,j], c='b', marker='o')
+    # min_distance = minimum_distance_among_robots(x[kk, :] , y[kk, :], z[kk,:])
+    # print("Minimum distance among all pairs of robots:", min_distance)
+    # print("time:", dt*kk)
 
     for i in range(len(Ad)):
         for j in range(i + 1, len(Ad[i])):
             if Ad[i, j] == 1:
-                plt.plot([x[kk,i], x[kk,j]], [y[kk,i], y[kk,j]], 'o-')
+                plt.plot([x[kk,i], x[kk,j]], [y[kk,i], y[kk,j]], 'o-', c='k')
     #print(theta[:,kk])
     plt.axis('equal')
     plt.show()
